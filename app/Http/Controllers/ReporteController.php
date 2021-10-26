@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
 
 use App\Models\Reporte;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ReporteController extends Controller
 {
@@ -17,7 +18,7 @@ class ReporteController extends Controller
      */
     public function index()
     {
-        //
+        return view("reporte.indexReporte");
     }
 
     /**
@@ -45,7 +46,8 @@ class ReporteController extends Controller
             'grado'=>'required|string|max:5',
             'grupo'=>'required|string|max:5',
             'turno'=>'required|string|max:10',
-            'iddocente'=>'required|int'
+            'iddocente'=>'required|int',
+            'created_at'=>'required|date'
         ];
         $mensaje=[
             'required'=>'El :attribute es requerido',
@@ -68,6 +70,7 @@ class ReporteController extends Controller
     public function show(Reporte $reporte)
     {
         //
+        return view('reporte.indexReporte');
     }
 
     /**
@@ -127,11 +130,7 @@ class ReporteController extends Controller
      */
     public function destroy($id)
     {
-        $reporte=Reporte::findOrFail($id);
-        if(Storage::delete('public/'.$reporte->imagen)){
-            Reporte::destroy($id);
-        }
-        
+        Reporte::destroy($id);
         return redirect('docente')->with('mensaje','Reporte borrado con éxito');
     }
 }

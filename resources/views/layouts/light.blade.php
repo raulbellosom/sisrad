@@ -25,20 +25,56 @@
         <nav class="navbar navbar-expand-md navbar-light shadow-sm bg-light" >
             <div class="container">
                 <a class="navbar-brand " style="color: #000" href="{{ url('/') }}">
-                    {{-- {{ config('app.name', 'SISRAD') }} --}}
-                    SISRAD
+                  <img src="{{asset('../resources/img/logo/ADYDO_Alter.png')}}" alt="adydo-logo" height="50px" >
                 </a>
-                <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                
+                <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Docente') }}</a>
+                    {{-- @guest
+                      @if( @auth
+                          
+                      @endauth)
+                      <ul class="navbar-nav mr-auto">
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Docente') }}</a>
+                          </li>
+                      </ul>
+                      @endif
+                    @endguest --}}
+                    @auth
+                      @if (Auth::user()->tipeUser  == "1")
+                        <ul class="navbar-nav mr-auto">
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Docente') }}</a>
+                          </li>
+                        </ul>
+                        @csrf
+                      @endif
+                      @if (Auth::user()->tipeUser  == "2")
+                        <ul class="navbar-nav mr-auto">
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Administrativo') }}</a>
+                          </li>
+                        </ul>
+                        @csrf
+                      @endif
+                      @if (Auth::user()->tipeUser  == "3")
+                        <ul class="navbar-nav mr-auto">
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Docente') }}</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Administrativo') }}</a>
                         </li>
-                    </ul>
+                        </ul>
+                        @csrf
+                      @endif
+                      
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -79,7 +115,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main >
             @yield('content')
         </main>
     </div>
@@ -158,8 +194,11 @@
       </div>
     </section>
     <!-- Section: Links  -->
-
+    <div style="display: flex; justify-content: center">
+      <img src="{{asset('../resources/img/logo/banner-tecmm.jpg')}}" alt="banner" width="100%" >
+    </div>
   </footer>
+  
   <!-- Footer -->
 </body>
 </html>

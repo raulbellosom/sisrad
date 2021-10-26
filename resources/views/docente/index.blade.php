@@ -2,7 +2,6 @@
 @section('content')
 
 <div class="container">
-    
         @if(Session::has('mensaje'))
         <div class="alert alert-success alert-dismissible" role="alert">
             {{ Session::get('mensaje') }}
@@ -12,7 +11,7 @@
          </div>
         @endif
         
-    <table class="table table-light">
+        <table class="table table-light">
         <thead class="thead-dark">
             <tr>
                 <th>Datos docente</th>
@@ -37,69 +36,61 @@
             <td>
                 Avance de competencias
             </td>
-            
         </tbody>
     </table>
-    <div style="">
-        <div style="display: flex;justify-content: space-between;align-content: center center;background-color: #343a40; padding: 5px; color: white">
-            
-            <div>
-                <h4>Ultimos reportes</h4>
-            </div>
-            <div>
-                <a href="{{url('reporte/create')}}" class="btn btn-success" >+ Crear nuevo reporte</a>
-                <a  class="btn btn-primary" href="{{url('/downloadPDF')}}">Ver todos los reportes</a>
-            </div>
-            
+    <div style="display: flex;justify-content: space-between;align-content: center center;background-color: #343a40; padding: 5px; color: white"> 
+        <div>
+            <h4>Ultimos reportes</h4>
         </div>
-        <table class="table table-dark">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Fecha de elaboración</th>
-                    <th>Tipo de reporte</th>
-                    <th>Carrera</th>
-                    <th>Asignatura</th>
-                    <th>Grado</th>
-                    <th>Grupo</th>
-                    <th>Turno</th>
-                    <th>Acciones</th>
-                    <th>Descargar</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($reportes as $reporte)
-                <tr>
-                    <td>{{$reporte->created_at}}</td>
-                    <td>{{$reporte->tipoReporte}}</td>
-                    <td>{{$reporte->carrera}}</td>
-                    <td>{{$reporte->asignatura}}</td>
-                    <td>{{$reporte->grado}}</td>
-                    <td>{{$reporte->grupo}}</td>
-                    <td>{{$reporte->turno}}</td>
-                    <td>
-                        <a href="{{url('/reporte/'.$reporte->id.'/edit') }}" class="btn btn-warning">
-                            Editar
-                        </a> 
-                        <form action="{{ url('/reporte/'.$reporte->id) }}" class="d-inline" method="POST">
-                            @csrf
-                            {{method_field('DELETE')}}
-                        <input type="submit" onclick="return confirm('¿Deseas borrar este usuario?')" 
-                        value="Borrar" class="btn btn-danger">
-                        </form>
-                    </td>
-                    <td>
-                        <a  class="btn btn-primary" href="{{url('/downloadPDF')}}">Descargar</a>
-                    </td>
-                </tr>
-            
-                @endforeach      
-            </tbody>
-        </table>
-        </div>
-        <div style="display:flex; justify-content: center">
-            {!! $reportes->links() !!}
+        <div>
+            <a href="{{url('reporte/index')}}" class="btn btn-success" >+ Crear nuevo reporte</a>
+            <a  class="btn btn-primary" href="{{url('/downloadPDF')}}">Ver todos los reportes</a>
         </div>
     </div>
-
+    <table class="table table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th>Fecha de elaboración</th>
+                <th>Tipo de reporte</th>
+                <th>Carrera</th>
+                <th>Asignatura</th>
+                <th>Grado</th>
+                <th>Grupo</th>
+                <th>Turno</th>
+                <th>Acciones</th>
+                <th>Descargar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($reportes as $reporte)
+            <tr>
+                <td>{{$reporte->created_at}}</td>
+                <td>{{$reporte->tipoReporte}}</td>
+                <td>{{$reporte->carrera}}</td>
+                <td>{{$reporte->asignatura}}</td>
+                <td>{{$reporte->grado}}</td>
+                <td>{{$reporte->grupo}}</td>
+                <td>{{$reporte->turno}}</td>
+                <td>
+                    <a href="{{url('/reporte/'.$reporte->id.'/edit') }}" class="btn btn-warning">
+                        Editar
+                    </a> 
+                    <form action="{{ url('/reporte/'.$reporte->id) }}" class="d-inline" method="POST">
+                        @csrf
+                        {{method_field('DELETE')}}
+                    <input type="submit" onclick="return confirm('¿Deseas borrar este reporte?')" 
+                    value="Borrar" class="btn btn-danger">
+                    </form>
+                </td>
+                <td>
+                    <a  class="btn btn-primary" href="{{url('/downloadPDF')}}">Descargar</a>
+                </td>
+            </tr>
+            @endforeach      
+        </tbody>
+    </table>
+    <div style="display:flex; justify-content: center">
+        {!! $reportes->links() !!}
+    </div>
 </div>
 @endsection

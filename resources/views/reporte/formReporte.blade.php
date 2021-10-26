@@ -46,6 +46,14 @@
     <input class="form-control" type="hidden" name="iddocente" 
     value="{{ $id }}" id="iddocente">
 </div>
+<div class="form-group"  >
+    
+    <input class="form-control" type="hidden" name="created_at" 
+    {{-- value="{{ date(DATE_COOKIE) }}" id="createAt"> --}}
+    {{date_default_timezone_set("America/Mexico_City")}}
+    value="{{ date('Y-m-d h:i:s') }}" id="created_at"
+    >
+</div>
 
 <input class="btn btn-success" type="submit" value="{{$modo}} datos">
 
