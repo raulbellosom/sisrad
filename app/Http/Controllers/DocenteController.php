@@ -27,10 +27,6 @@ class DocenteController extends Controller
 
         return view("docente.index", $user, $datos);
     }
-    public function guest()
-    {
-        return view("docente.guest");
-    }
 
     /**
      * Show the form for creating a new resource.

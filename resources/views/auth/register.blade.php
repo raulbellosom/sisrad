@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
+                <div class="card-header text-center font-weight-bold">{{ __('SISTEMA DE SEGUIMIENTO A LA PRACTICA ADMINISTRATIVA Y DOCENTES') }}</div>
+                <div class="text-center h3 m-4 ">{{ __('Registro de usuarios') }}</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -18,6 +18,24 @@
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="typeUser" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de usuario') }}</label>
+
+                            <div class="col-md-6">
+                                {{-- <input id="typeUser" type="text" class="form-control @error('typeUser') is-invalid @enderror" name="typeUser" value="{{ old('typeUser') }}" required autocomplete="typeUser" autofocus> --}}
+                                <select class="form-control @error('typeUser') is-invalid @enderror"  name="typeUser" id="typeUser">
+                                    <option value="1">Docente</option>
+                                    <option value="2">Administrativo</option>
+                                    <option value="3">Docente y Administrativo</option>
+                                </select>
+                                @error('typeUser')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

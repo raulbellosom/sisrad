@@ -18,7 +18,11 @@ class ReporteController extends Controller
      */
     public function index()
     {
-        return view("reporte.indexReporte");
+        $id = Auth::id();
+        $datos["reportes"]=Reporte::where('iddocente','=',$id)->paginate(10);
+        $user['users'] = Auth::user();
+
+        return view("reporte.indexReporte", $user, $datos);
     }
 
     /**

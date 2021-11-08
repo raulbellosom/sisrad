@@ -24,7 +24,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm bg-light" >
             <div class="container">
-                <a class="navbar-brand " style="color: #000" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/') }}">
                   <img src="{{asset('../resources/img/logo/ADYDO_Alter.png')}}" alt="adydo-logo" height="50px" >
                 </a>
                 
@@ -46,15 +46,15 @@
                       @endif
                     @endguest --}}
                     @auth
-                      @if (Auth::user()->tipeUser  == "1")
+                      @if (Auth::user()->typeUser  == "1")
                         <ul class="navbar-nav mr-auto">
                           <li class="nav-item">
-                              <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Docente') }}</a>
+                              <a class="nav-link" href="{{ route('reporte.index') }}">{{ __('Mis reportes') }}</a>
                           </li>
                         </ul>
                         @csrf
                       @endif
-                      @if (Auth::user()->tipeUser  == "2")
+                      @if (Auth::user()->typeUser  == "2")
                         <ul class="navbar-nav mr-auto">
                           <li class="nav-item">
                               <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Administrativo') }}</a>
@@ -62,14 +62,28 @@
                         </ul>
                         @csrf
                       @endif
-                      @if (Auth::user()->tipeUser  == "3")
+                      @if (Auth::user()->typeUser  == "3")
                         <ul class="navbar-nav mr-auto">
                           <li class="nav-item">
                               <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Docente') }}</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Administrativo') }}</a>
-                        </li>
+                          </li>
+                        </ul>
+                        @csrf
+                      @endif
+                      @if (Auth::user()->typeUser  == "4")
+                        <ul class="navbar-nav mr-auto">
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('reporte.index') }}">{{ __('Docente') }}</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Administrativo') }}</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Panel de control') }}</a>
+                          </li>
                         </ul>
                         @csrf
                       @endif

@@ -12,7 +12,7 @@
                 <div class="row justify-content-center" style="padding-top: 50px;">
                     <div class="col-md-8">
                         <div class="card " style="background-color: rgba(255, 255, 255, 0.5);">
-                            <div class="card-header" ><h3 class="font-weight-bold text-uppercase text-center">{{ __('Sistema de Seguimiento a la Practica Administrativa y Docentes') }}</h3></div>
+                            <div class="card-header" ><h3 class="font-weight-bold text-uppercase text-center">{{ __('Sistema de Seguimiento a la Practica Administrativa Docente') }}</h3></div>
                                 <div class="card-body">
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
