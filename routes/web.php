@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\ReporteController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ReporteDiagnosticoController;
 
@@ -39,10 +39,14 @@ Route::resource('docente',DocenteController::class)->middleware('auth');
 //---------------------------Rutas para los reportes
 Route::group(['middleware'=>'auth'], function(){
     Route::get('reporte/index', [ReporteController::class, 'index']);
-    Route::get('reporte/create', [ReporteController::class, 'create']);
     Route::get('reporte/show', [ReporteController::class, 'show']);
-    Route::get('reporte/tipoReporte/reporteDiagnostico', [ReporteDiagnosticoController::class, 'create']);
+    // Route::get('reporte/tipoReporte/reporteDiagnostico', [ReporteDiagnosticoController::class, 'create']);
     Route::resource('reporte', ReporteController::class);
+});
+
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('reporte/tipoReporte/reporteDiagnostico', [ReporteDiagnosticoController::class, 'create']);
+    Route::resource('reporteDiagnostico', ReporteDiagnosticoController::class);
 });
 
 //---------------------------Rutas para los reportes

@@ -5,7 +5,17 @@
     {{-- Inicio Formulario Reporte --}}
     <form action="{{url('/reporte')}}" method="POST" enctype="multipart/form-data">
         @csrf
-        {{-- @include('reporte.formReporte',['modo'=>'Crear', 'id'=>Auth::user()->id]) --}}
+        
+        @if (count($errors)>0)
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    @foreach( $errors->all() as $error)
+                    <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- Titulo --}}
             <div class="bg-primary p-4 mb-4 mt-4 text-center text-light font-weight-bold text-h1 text-uppercase" >
                 Reporte Diagnostico
@@ -17,40 +27,58 @@
                 <div class="bg-primary p-4 mb-4 text-center text-light font-weight-bold text-h1 text-uppercase">
                     Información General
                 </div>
-                <div class="mb-4 pl-4 pr-4 col-md-12 d-flex justify-content-around">
+                <div class="mb-4 col-md-12 d-flex justify-content-around">
                     <div class="d-flex align-items-center">
-                        <label for="asignatura" class="col-md-4 col-form-label text-md-right">Asignatura</label>
-                        <input id="asignatura" class="form-control " type="text" placeholder="Asignatura">
+                        <label for="asignatura" class="col-form-label text-md-right pr-2">Asignatura</label>
+                        <input id="asignatura" class="form-control " type="text" placeholder="Asignatura"
+                            value="{{ isset($reporte->asignatura) ? $reporte->asignatura:old('asignatura') }}" id="asignatura"
+                        >
                     </div>
                     <div class="d-flex align-items-center">
-                        <label for="tipo-evaluacion" class="col-md-4 col-form-label text-md-right">Tipo de evaluacón</label>
-                        <input id="tipo-evaluacion" class="form-control " type="text" placeholder="Tipo de evaluación">
+                        <label for="tipo-tipo_evaluacion" class="col-form-label text-md-right pr-2">Tipo de evaluacón</label>
+                        <input id="tipo_evaluacion" class="form-control " type="text" placeholder="Tipo de evaluación"
+                            value="{{ isset($reporte->tipo_evaluacion) ? $reporte->tipo_evaluacion:old('tipo_evaluacion') }}" id="tipo_evaluacion"
+                        >
                     </div>
                     <div class="d-flex align-items-center">
-                        <label for="total-alumnos" class="col-md-4 col-form-label text-md-right">Alumnos evaluados</label>
-                        <input id="total-alumnos" class="form-control " type="number" placeholder="Número de alumnos" min="1" pattern="^[0-9]+">
+                        <label for="total-cantidad_alumnos" class="col-form-label text-md-right pr-2">Alumnos evaluados</label>
+                        <input id="cantidad_alumnos" class="form-control " type="number" placeholder="Número de alumnos" min="1" pattern="^[0-9]+"
+                            value="{{ isset($reporte->cantidad_alumnos) ? $reporte->cantidad_alumnos:old('cantidad_alumnos') }}" id="cantidad_alumnos"
+                        >
                     </div>
                 </div>
-                <div class="mw-100 pl-4 pr-4 d-flex justify-content-around">
+                <div class="mb-4 mw-100 d-flex justify-content-around">
                     <div class="d-flex align-items-center">
-                        <label for="carrera" class="col-md-4 col-form-label text-md-right">Carrera</label> 
+                        <label for="carrera" class="col-form-label text-md-right pr-2">Carrera</label> 
                         <input id="carrera" class="form-control mr-2" type="text" placeholder="Grado">
                     </div>
                     <div class="d-flex align-items-center">
-                        <label for="grado" class="col-md-4 col-form-label text-md-right">Grado</label>
+                        <label for="grado" class="col-form-label text-md-right pr-2">Grado</label>
                         <input id="grado" class="form-control mr-2" type="text" placeholder="Grado" min="1" max="9" pattern="^[0-9]+">
                     </div>
                     <div class="d-flex align-items-center">
-                        <label for="grupo" class="col-md-4 col-form-label text-md-right">Grupo</label> 
+                        <label for="grupo" class="col-form-label text-md-right pr-2">Grupo</label> 
                         <input id="grupo" class="form-control mr-2" type="text" placeholder="Grupo">
                     </div>
                     <div class="d-flex align-items-center">
-                        <label for="turno" class="col-md-4 col-form-label text-md-right">Turno</label> 
+                        <label for="turno" class="col-form-label text-md-right pr-2">Turno</label> 
                         <select class="form-control" name="turno" id="turno">
                             <option value="" hidden></option>
                             <option value="matutino">Matutino</option>
                             <option value="vespertino">Vespertino</option>
                         </select>
+                    </div>
+                </div>
+                <div class="mw-100 d-flex justify-content-around">
+                    <div class="d-flex align-items-center">
+                        <input id="autor" class="form-control " type="text" hidden
+                        value="{{ $users->name}}" id="autor"
+                        >
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input id="user_id" class="form-control " type="text" hidden
+                        value="{{ $users->id}}" id="user_id"
+                        >
                     </div>
                 </div>
             </div>
@@ -186,8 +214,8 @@
 
         {{-- Botones  --}}
             <div class="float-right ">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Guardar reporte</button>
-                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Cancelar</button>
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Crear reporte">
+                <a class="btn btn-outline-danger my-2 my-sm-0" href="{{url('reporte')}}">Cancelar</a>
             </div>
         {{-- Botones --}}
 

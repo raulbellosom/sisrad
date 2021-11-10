@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Docente;
-use App\Models\Reporte;
+use App\Models\ReporteDiagnostico;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
@@ -22,10 +22,11 @@ class DocenteController extends Controller
         // $datos["users"]=User::where('userid','=',$user);
         // $datos = DB::table('users')->where('id',$id);
         $id = Auth::id();
-        $datos["reportes"]=Reporte::where('iddocente','=',$id)->paginate(3);
+        $datos["reporte_diagnostico"]=ReporteDiagnostico::where('user_id','=',$id)->paginate(3);
         $user['users'] = Auth::user();
 
         return view("docente.index", $user, $datos);
+        // return view("docente.index", $user);
     }
 
     /**

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\reporteDiagnostico;
+use App\Models\ReporteDiagnostico;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ReporteDiagnosticoController extends Controller
@@ -24,8 +25,11 @@ class ReporteDiagnosticoController extends Controller
      */
     public function create()
     {
-        //
-        return view("reporte/tipoReporte/reporteDiagnostico");
+        $id = Auth::id();
+        $datos["reportes"]=ReporteDiagnostico::where('user_id','=',$id)->paginate(10);
+        $user['users'] = Auth::user();
+
+        return view("reporte/tipoReporte/reporteDiagnostico", $user,$datos);
     }
 
     /**
@@ -36,16 +40,38 @@ class ReporteDiagnosticoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $campos=[
+            'user_id'=>'required|int',
+            'autor'=>'required|string',
+            'nombre_reporte'=>'required|string',
+            'asignatura'=>'required|string|max:50',
+            'tipo_evaluacion'=>'required|string',
+            'cantidad_alumnos'=>'required|string|max:2',
+            'carrera'=>'required|string|max:5',
+            'grado'=>'required|string|max:5',
+            'grupo'=>'required|string|max:5',
+            'turno'=>'required|string|max:10',
+            'created_at'=>'required|date'
+        ];
+        $mensaje=[
+            'required'=>'El :attribute es requerido',
+        ];
+        $this->validate($request, $campos, $mensaje);
+
+        $datosReporte = request()->except("_token");
+        
+        ReporteDiagnostico::insert($datosReporte);
+
+        return redirect('reporte')->with('mensaje','Reporte creado con éxito');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\reporteDiagnostico  $reporteDiagnostico
+     * @param  \App\Models\ReporteDiagnostico  $reporteDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function show(reporteDiagnostico $reporteDiagnostico)
+    public function show(ReporteDiagnostico $reporteDiagnostico)
     {
         //
     }
@@ -53,10 +79,10 @@ class ReporteDiagnosticoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\reporteDiagnostico  $reporteDiagnostico
+     * @param  \App\Models\ReporteDiagnostico  $reporteDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function edit(reporteDiagnostico $reporteDiagnostico)
+    public function edit(ReporteDiagnostico $reporteDiagnostico)
     {
         //
     }
@@ -65,10 +91,10 @@ class ReporteDiagnosticoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\reporteDiagnostico  $reporteDiagnostico
+     * @param  \App\Models\ReporteDiagnostico  $reporteDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, reporteDiagnostico $reporteDiagnostico)
+    public function update(Request $request, ReporteDiagnostico $reporteDiagnostico)
     {
         //
     }
@@ -76,10 +102,10 @@ class ReporteDiagnosticoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\reporteDiagnostico  $reporteDiagnostico
+     * @param  \App\Models\ReporteDiagnostico  $reporteDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function destroy(reporteDiagnostico $reporteDiagnostico)
+    public function destroy(ReporteDiagnostico $reporteDiagnostico)
     {
         //
     }

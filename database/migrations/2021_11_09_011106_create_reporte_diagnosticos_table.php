@@ -15,6 +15,19 @@ class CreateReporteDiagnosticosTable extends Migration
     {
         Schema::create('reporte_diagnosticos', function (Blueprint $table) {
             $table->id();
+            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->string('autor');
+            $table->string('nombre_reporte');
+            $table->string('asignatura');
+            $table->string('tipo_evaluacion');
+            $table->string('cantidad_alumnos');
+            $table->string('carrera');
+            $table->string('grado');
+            $table->string('grupo');
+            $table->string('turno');
             $table->timestamps();
         });
     }

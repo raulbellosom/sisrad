@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Reporte;
+use App\Models\ReporteDiagnostico;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +19,7 @@ class ReporteController extends Controller
     public function index()
     {
         $id = Auth::id();
-        $datos["reportes"]=Reporte::where('iddocente','=',$id)->paginate(10);
+        $datos["reportes"]=ReporteDiagnostico::where('user_id','=',$id)->paginate(10);
         $user['users'] = Auth::user();
 
         return view("reporte.indexReporte", $user, $datos);

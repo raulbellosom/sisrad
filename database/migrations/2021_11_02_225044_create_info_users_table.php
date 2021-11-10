@@ -15,8 +15,21 @@ class CreateInfoUsersTable extends Migration
     {
         Schema::create('info_users', function (Blueprint $table) {
             $table->id();
+
+            $table->string("telefono");
+            $table->string("direccion");
+            $table->string("edad");
+            $table->string("curp");
+            $table->string("nss");
+            $table->string("rfc");
+            $table->string("genero");
+            $table->string("imagen");
             $table->timestamps();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
+
     }
 
     /**
@@ -27,5 +40,6 @@ class CreateInfoUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('info_users');
+        
     }
 }

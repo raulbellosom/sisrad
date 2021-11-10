@@ -3,14 +3,14 @@
 
 <div class="container">
         {{-- Codigo para recepcion de un mensaje --}}
-            {{-- @if(Session::has('mensaje'))
+            @if(Session::has('mensaje'))
                 <div class="alert alert-success alert-dismissible" role="alert">
                     {{ Session::get('mensaje') }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            @endif --}}
+            @endif
         {{-- Codigo para recepcion de un mensaje --}}
 
     {{-- Barra de navegación  --}}
@@ -41,8 +41,8 @@
         </div>
         <div class="col-sm-12  row-sm-12">
             <table class="table table-responsive table-light col-12 table-striped d-flex justify-content-lg-around">
-                <thead class="bg-white ">
-                    <tr >
+                <thead class="bg-white">
+                    <tr>
                         <th>Fecha de elaboración</th>
                         <th>Tipo de reporte</th>
                         <th>Carrera</th>
