@@ -32,7 +32,7 @@ class ReporteDiagnosticoController extends Controller
         $datos["reportes"]=ReporteDiagnostico::where('user_id','=',$id)->paginate(10);
         $user['users'] = Auth::user();
 
-        return view("reporte/reporte_diagnostico/reporteDiagnostico", $user,$datos);
+        return view("reporte/reporte_diagnostico/create_diagnostico", $user,$datos);
     }
 
     /**
@@ -85,9 +85,11 @@ class ReporteDiagnosticoController extends Controller
      * @param  \App\Models\ReporteDiagnostico  $reporteDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function edit(ReporteDiagnostico $reporteDiagnostico)
+    public function edit($id)
     {
-        //
+        $user['users'] = Auth::user();
+        $reporte_diagnostico=ReporteDiagnostico::findOrFail($id);
+        return view('reporte.reporte_diagnostico.edit_diagnostico', $user, compact('reporte_diagnostico'));
     }
 
     /**
@@ -97,9 +99,34 @@ class ReporteDiagnosticoController extends Controller
      * @param  \App\Models\ReporteDiagnostico  $reporteDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ReporteDiagnostico $reporteDiagnostico)
+    public function update(Request $request, $id)
     {
-        //
+        $campos=[
+            'user_id'=>'required|int',
+            'autor'=>'required|string',
+            'nombre_reporte'=>'required|string',
+            'asignatura'=>'required|string',
+            'tipo_evaluacion'=>'required|string',
+            'cantidad_alumnos'=>'required|int',
+            'carrera'=>'required|string',
+            'grado'=>'required|string',
+            'grupo'=>'required|string',
+            'turno'=>'required|string',
+            'created_at'=>'required|date'
+        ];
+        $mensaje=[
+            'required'=>'El :attribute es requerido',
+        ];
+        $this->validate($request, $campos, $mensaje);
+
+        $datosReporte = request()->except('_token','_method');
+        
+        ReporteDiagnostico::insert($datosReporte);
+
+        ReporteDiagnostico::where('id','=',$id)->update($datosReporte);
+        $reporte_diagnostico=ReporteDiagnostico::findOrFail($id);
+
+        return redirect('reporte_diagnostico')->with('mensaje','Reporte ha sido modificado con éxito');
     }
 
     /**

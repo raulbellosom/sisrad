@@ -1,11 +1,18 @@
-@extends('layouts.light')  
+<div class="d-flex justify-content-between">
+    <a class="btn btn-outline-danger" href="{{url('reporte_diagnostico/')}}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+        Regresar
+    </a>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+            <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+        </svg>
+        {{$modo}} reporte
+    </button>
+</div>
 
-@section('content')
-<div class="container">
-    {{-- Inicio Formulario Reporte --}}
-    <form action="{{url('/reporte_diagnostico')}}" method="POST" enctype="multipart/form-data">
-        @csrf
-        
         @if (count($errors)>0)
             <div class="alert alert-danger" role="alert">
                 <ul>
@@ -18,7 +25,7 @@
 
         {{-- Titulo --}}
             <div class="bg-primary p-4 mb-4 mt-4 text-center text-light font-weight-bold text-h1 text-uppercase" >
-                Reporte Diagnostico
+                {{$modo}} Reporte Diagnostico
             </div>
         {{-- Titulo --}}
 
@@ -30,42 +37,50 @@
                 <div class="mb-4 col-md-12 d-flex justify-content-around">
                     <div class="form-group d-flex align-items-center">
                         <label for="asignatura" class="col-form-label text-md-right pr-2">Asignatura</label>
-                        <input id="asignatura" class="form-control" name="asignatura" type="text" placeholder="Asignatura"
-                            value="{{ isset($reporte->asignatura) ? $reporte->asignatura:old('asignatura') }}" id="asignatura"
+                        <input id="asignatura" class="form-control mr-2" name="asignatura" type="text" placeholder="Asignatura"
+                            value="{{ isset($reporte_diagnostico->asignatura) ? $reporte_diagnostico->asignatura:old('asignatura') }}"
                         >
                     </div>
                     <div class="form-group d-flex align-items-center">
-                        <label for="tipo-tipo_evaluacion" class="col-form-label text-md-right pr-2">Tipo de evaluacón</label>
-                        <input id="tipo_evaluacion" class="form-control" name="tipo_evaluacion" type="text" placeholder="Tipo de evaluación"
-                            value="{{ isset($reporte->tipo_evaluacion) ? $reporte->tipo_evaluacion:old('tipo_evaluacion') }}" id="tipo_evaluacion"
+                        <label for="tipo_evaluacion" class="col-form-label text-md-right pr-2">Tipo de evaluacón</label>
+                        <input id="tipo_evaluacion" class="form-control mr-2" name="tipo_evaluacion" type="text" placeholder="Tipo de evaluación"
+                            value="{{ isset($reporte_diagnostico->tipo_evaluacion) ? $reporte_diagnostico->tipo_evaluacion:old('tipo_evaluacion') }}"
                         >
                     </div>
                     <div class="form-group d-flex align-items-center">
-                        <label for="total-cantidad_alumnos" class="col-form-label text-md-right pr-2">Alumnos evaluados</label>
-                        <input id="cantidad_alumnos" class="form-control" name="cantidad_alumnos" type="number" placeholder="Número de alumnos" min="1" pattern="^[0-9]+"
-                            value="{{ isset($reporte->cantidad_alumnos) ? $reporte->cantidad_alumnos:old('cantidad_alumnos') }}" id="cantidad_alumnos"
+                        <label for="cantidad_alumnos" class="col-form-label text-md-right pr-2">Alumnos evaluados</label>
+                        <input id="cantidad_alumnos" class="form-control mr-2" name="cantidad_alumnos" type="number" placeholder="Número de alumnos" min="1" pattern="^[0-9]+"
+                            value="{{ isset($reporte_diagnostico->cantidad_alumnos) ? $reporte_diagnostico->cantidad_alumnos:old('cantidad_alumnos') }}" 
                         >
                     </div>
                 </div>
-                <div class="mb-4 mw-100 d-flex justify-content-around">
+                <div class="mb-4 col-md-12 mw-100 d-flex justify-content-around">
                     <div class="form-group d-flex align-items-center">
                         <label for="carrera" class="col-form-label text-md-right pr-2">Carrera</label> 
-                        <input id="carrera" class="form-control mr-2" name="carrera" type="text" placeholder="Grado">
+                        <input id="carrera" class="form-control mr-2" name="carrera" type="text" placeholder="carrera"
+                            value="{{ isset($reporte_diagnostico->carrera) ? $reporte_diagnostico->carrera:old('carrera') }}"
+                        >
                     </div>
                     <div class="form-group form-group d-flex align-items-center">
                         <label for="grado" class="col-form-label text-md-right pr-2">Grado</label>
-                        <input id="grado" class="form-control mr-2" name="grado" type="text" placeholder="Grado" min="1" max="9" pattern="^[0-9]+">
+                        <input id="grado" class="form-control mr-2" name="grado" type="number" placeholder="Grado" min="0" max="9" pattern="^[0-9]+"
+                            value="{{ isset($reporte_diagnostico->grado) ? $reporte_diagnostico->grado:old('grado') }}"
+                        >
                     </div>
                     <div class="form-group d-flex align-items-center">
                         <label for="grupo" class="col-form-label text-md-right pr-2">Grupo</label> 
-                        <input id="grupo" class="form-control mr-2" name="grupo" type="text" placeholder="Grupo">
+                        <input id="grupo" class="form-control mr-2" name="grupo" type="text" placeholder="Grupo"
+                            value="{{ isset($reporte_diagnostico->grupo) ? $reporte_diagnostico->grupo:old('grupo') }}"
+                        >
                     </div>
                     <div class="form-group d-flex align-items-center">
                         <label for="turno" class="col-form-label text-md-right pr-2">Turno</label> 
-                        <select id="turno" class="form-control" name="turno" id="turno">
-                            <option value="" hidden></option>
-                            <option value="matutino">Matutino</option>
-                            <option value="vespertino">Vespertino</option>
+                        <select id="turno" class="form-control" name="turno"
+                            value="{{ isset($reporte_diagnostico->turno) ? $reporte_diagnostico->turno:old('turno') }}"
+                        >
+                            <option value="{{ isset($reporte_diagnostico->turno) ? $reporte_diagnostico->turno:old('turno') }}" hidden>{{ isset($reporte_diagnostico->turno) ? $reporte_diagnostico->turno:old('turno') }}</option>
+                            <option value="Matutino">Matutino</option>
+                            <option value="Vespertino">Vespertino</option>
                         </select>
                     </div>
                 </div>
@@ -225,9 +240,23 @@
         {{-- Plan accion general --}}
 
         {{-- Botones  --}}
-            <div class="float-right ">
-                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Crear reporte">
-                <a class="btn btn-outline-danger my-2 my-sm-0" href="{{url('reporte_diagnostico/')}}">Cancelar</a>
+            <div class="d-flex justify-content-end">
+                <div class="mr-3">
+                    <a class="btn btn-outline-danger" href="{{url('reporte_diagnostico/')}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                        </svg>
+                        Regresar
+                    </a>
+                </div>
+                <div>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                            <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                        </svg>
+                        {{$modo}} reporte
+                    </button>
+                </div>
             </div>
         {{-- Botones --}}
 
@@ -264,4 +293,3 @@
         });
     </script>
 {{-- Script campos automaticos --}}
-@endsection

@@ -57,7 +57,7 @@
                     @foreach ($reportes as $reporte)
                     <tr>
                         <td>{{$reporte->created_at}}</td>
-                        <td>{{$reporte->tipoReporte}}</td>
+                        <td>{{$reporte->nombre_reporte}}</td>
                         <td>{{$reporte->carrera}}</td>
                         <td>{{$reporte->asignatura}}</td>
                         <td>{{$reporte->grado}} {{$reporte->grupo}}</td>
