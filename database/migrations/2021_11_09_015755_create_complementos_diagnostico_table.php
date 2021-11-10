@@ -34,6 +34,7 @@ class CreateComplementosDiagnosticoTable extends Migration
             $table->string('alumno_particular');
             $table->string('deficiencia_particular');
             $table->string('accion_particular');
+            
             $table->unsignedBigInteger('r_diagnostico_id');
             $table->foreign('r_diagnostico_id')->references('id')->on('reporte_diagnosticos');
         });

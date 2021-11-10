@@ -15,7 +15,10 @@ class ReporteDiagnosticoController extends Controller
      */
     public function index()
     {
-        //
+        $id = Auth::id();
+        $datos["reportes"]=ReporteDiagnostico::where('user_id','=',$id)->paginate(10);
+        $user['users'] = Auth::user();
+        return view('reporte/reporte_diagnostico/indexDiagnostico', $user, $datos);
     }
 
     /**
@@ -29,7 +32,7 @@ class ReporteDiagnosticoController extends Controller
         $datos["reportes"]=ReporteDiagnostico::where('user_id','=',$id)->paginate(10);
         $user['users'] = Auth::user();
 
-        return view("reporte/tipoReporte/reporteDiagnostico", $user,$datos);
+        return view("reporte/reporte_diagnostico/reporteDiagnostico", $user,$datos);
     }
 
     /**
@@ -44,13 +47,13 @@ class ReporteDiagnosticoController extends Controller
             'user_id'=>'required|int',
             'autor'=>'required|string',
             'nombre_reporte'=>'required|string',
-            'asignatura'=>'required|string|max:50',
+            'asignatura'=>'required|string',
             'tipo_evaluacion'=>'required|string',
-            'cantidad_alumnos'=>'required|string|max:2',
-            'carrera'=>'required|string|max:5',
-            'grado'=>'required|string|max:5',
-            'grupo'=>'required|string|max:5',
-            'turno'=>'required|string|max:10',
+            'cantidad_alumnos'=>'required|int',
+            'carrera'=>'required|string',
+            'grado'=>'required|string',
+            'grupo'=>'required|string',
+            'turno'=>'required|string',
             'created_at'=>'required|date'
         ];
         $mensaje=[

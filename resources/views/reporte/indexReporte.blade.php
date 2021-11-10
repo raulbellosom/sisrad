@@ -15,13 +15,13 @@
 
     {{-- Barra de navegación  --}}
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-            <a class="navbar-brand mb-0 h1" href="#">Mis reportes</a>
+            <a class="navbar-brand mb-0 h1" href="{{url('reporte/')}}">Mis reportes</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <div class="navbar-nav justify-items-center">
-                    <a href="{{url('reporte/tipoReporte/reporteDiagnostico')}}" class="nav-link" >Reporte Diagnostico</a>
+                    <a href="{{url('reporte_diagnostico/')}}" class="nav-link" >Reporte Diagnostico</a>
                     <a class="nav-link" href="#">Reporte de Avance Programatico</a>
                     <a class="nav-link" href="#">Reporte de Avance Academico</a>
                     <a class="nav-link" href="#">Reporte Departamental</a>
@@ -40,7 +40,7 @@
             </form>
         </div>
         <div class="col-sm-12  row-sm-12">
-            <table class="table table-responsive table-light col-12 table-striped d-flex justify-content-lg-around">
+            <table class="table table-responsive table-light col-12 table-striped">
                 <thead class="bg-white">
                     <tr>
                         <th>Fecha de elaboración</th>
@@ -55,7 +55,7 @@
                 </thead>
                 <tbody>
                     @foreach ($reportes as $reporte)
-                    <tr class="border border-secondary">
+                    <tr>
                         <td>{{$reporte->created_at}}</td>
                         <td>{{$reporte->tipoReporte}}</td>
                         <td>{{$reporte->carrera}}</td>

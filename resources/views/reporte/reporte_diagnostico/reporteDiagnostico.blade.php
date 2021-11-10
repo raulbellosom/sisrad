@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     {{-- Inicio Formulario Reporte --}}
-    <form action="{{url('/reporte')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{url('/reporte_diagnostico')}}" method="POST" enctype="multipart/form-data">
         @csrf
         
         @if (count($errors)>0)
@@ -28,41 +28,41 @@
                     Información General
                 </div>
                 <div class="mb-4 col-md-12 d-flex justify-content-around">
-                    <div class="d-flex align-items-center">
+                    <div class="form-group d-flex align-items-center">
                         <label for="asignatura" class="col-form-label text-md-right pr-2">Asignatura</label>
-                        <input id="asignatura" class="form-control " type="text" placeholder="Asignatura"
+                        <input id="asignatura" class="form-control" name="asignatura" type="text" placeholder="Asignatura"
                             value="{{ isset($reporte->asignatura) ? $reporte->asignatura:old('asignatura') }}" id="asignatura"
                         >
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="form-group d-flex align-items-center">
                         <label for="tipo-tipo_evaluacion" class="col-form-label text-md-right pr-2">Tipo de evaluacón</label>
-                        <input id="tipo_evaluacion" class="form-control " type="text" placeholder="Tipo de evaluación"
+                        <input id="tipo_evaluacion" class="form-control" name="tipo_evaluacion" type="text" placeholder="Tipo de evaluación"
                             value="{{ isset($reporte->tipo_evaluacion) ? $reporte->tipo_evaluacion:old('tipo_evaluacion') }}" id="tipo_evaluacion"
                         >
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="form-group d-flex align-items-center">
                         <label for="total-cantidad_alumnos" class="col-form-label text-md-right pr-2">Alumnos evaluados</label>
-                        <input id="cantidad_alumnos" class="form-control " type="number" placeholder="Número de alumnos" min="1" pattern="^[0-9]+"
+                        <input id="cantidad_alumnos" class="form-control" name="cantidad_alumnos" type="number" placeholder="Número de alumnos" min="1" pattern="^[0-9]+"
                             value="{{ isset($reporte->cantidad_alumnos) ? $reporte->cantidad_alumnos:old('cantidad_alumnos') }}" id="cantidad_alumnos"
                         >
                     </div>
                 </div>
                 <div class="mb-4 mw-100 d-flex justify-content-around">
-                    <div class="d-flex align-items-center">
+                    <div class="form-group d-flex align-items-center">
                         <label for="carrera" class="col-form-label text-md-right pr-2">Carrera</label> 
-                        <input id="carrera" class="form-control mr-2" type="text" placeholder="Grado">
+                        <input id="carrera" class="form-control mr-2" name="carrera" type="text" placeholder="Grado">
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="form-group form-group d-flex align-items-center">
                         <label for="grado" class="col-form-label text-md-right pr-2">Grado</label>
-                        <input id="grado" class="form-control mr-2" type="text" placeholder="Grado" min="1" max="9" pattern="^[0-9]+">
+                        <input id="grado" class="form-control mr-2" name="grado" type="text" placeholder="Grado" min="1" max="9" pattern="^[0-9]+">
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="form-group d-flex align-items-center">
                         <label for="grupo" class="col-form-label text-md-right pr-2">Grupo</label> 
-                        <input id="grupo" class="form-control mr-2" type="text" placeholder="Grupo">
+                        <input id="grupo" class="form-control mr-2" name="grupo" type="text" placeholder="Grupo">
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="form-group d-flex align-items-center">
                         <label for="turno" class="col-form-label text-md-right pr-2">Turno</label> 
-                        <select class="form-control" name="turno" id="turno">
+                        <select id="turno" class="form-control" name="turno" id="turno">
                             <option value="" hidden></option>
                             <option value="matutino">Matutino</option>
                             <option value="vespertino">Vespertino</option>
@@ -71,13 +71,25 @@
                 </div>
                 <div class="mw-100 d-flex justify-content-around">
                     <div class="d-flex align-items-center">
-                        <input id="autor" class="form-control " type="text" hidden
+                        <input class="form-control " type="hidden" name="nombre_reporte"
+                        value="Reporte Diagnostico" id="nombre_reporte"
+                        >
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input class="form-control " type="hidden" name="autor"
                         value="{{ $users->name}}" id="autor"
                         >
                     </div>
                     <div class="d-flex align-items-center">
-                        <input id="user_id" class="form-control " type="text" hidden
+                        <input class="form-control " type="hidden" name="user_id"
                         value="{{ $users->id}}" id="user_id"
+                        >
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input class="form-control" type="hidden" name="created_at" 
+                        {{-- value="{{ date(DATE_COOKIE) }}" id="createAt"> --}}
+                        {{date_default_timezone_set("America/Mexico_City")}}
+                        value="{{ date('Y-m-d h:i:s') }}" id="created_at"
                         >
                     </div>
                 </div>
@@ -145,13 +157,13 @@
                                 <div class="form-group col-md-10" >
                                     <div style="display: flex">
                                         <label class="mr-4" for="Nombres">Competencia</label>
-                                        <input type="text" name="nombre[]" class="form-control">
+                                        <input type="text" id="nombre" class="form-control">
                                     </div>
                                     <span class="badge badge-pill badge-danger puntero ocultar" style="cursor: pointer">Eliminar</span>
                                 </div>
                                 <div class="form-group col-md-2" style="display: flex">
                                     <label class=" mr-4" for="nivel">Nivel</label>
-                                    <select class="form-control" name="nivel" id="nivel">
+                                    <select class="form-control" id="nivel" id="nivel">
                                         <option value="" hidden></option>
                                         <option value="0">Nulo</option>
                                         <option value="1">Bajo</option>
@@ -176,15 +188,15 @@
                 <div class="mw-100 mt-4 pl-4 pr-4">
                     <div class="mb-3">
                         Deficiencias 
-                        <textarea class="form-control mr-sm-2" name="tiempo" id="" cols="" rows="4"></textarea>
+                        <textarea class="form-control mr-sm-2" id="deficiencia" id="" cols="" rows="4"></textarea>
                     </div>
                     <div class="mb-3">
                         Acciones sugeridas y recursos necesarios 
-                        <textarea class="form-control mr-sm-2" name="tiempo" id="" cols="" rows="4"></textarea>
+                        <textarea class="form-control mr-sm-2" id="accion_g" id="" cols="" rows="4"></textarea>
                     </div>
                     <div class="mb-3" >
                         Tiempo de ejecución e impacto en cronograma
-                        <textarea class="form-control mr-sm-2" name="tiempo" id="" cols="" rows="4"></textarea>
+                        <textarea class="form-control mr-sm-2" id="tiempo_g" id="" cols="" rows="4"></textarea>
                     </div>
                 </div>
             </div>
@@ -198,15 +210,15 @@
                 <div class="mw-100 pl-4 pr-4">
                     <div class="mb-2">
                         Nombre del alumno 
-                        <textarea class="form-control mr-sm-2" name="tiempo" id="" cols="" rows="4"></textarea>
+                        <textarea class="form-control mr-sm-2" id="tiempo" id="" cols="" rows="4"></textarea>
                     </div>
                     <div class="mb-2">
                         Deficiencias (temas, áreas, otros) 
-                        <textarea class="form-control mr-sm-2" name="tiempo" id="" cols="" rows="4"></textarea>
+                        <textarea class="form-control mr-sm-2" id="tiempo" id="" cols="" rows="4"></textarea>
                     </div>
                     <div class="mb-2" >
                         Acción sugerida (academica, psicologica, etc)
-                        <textarea class="form-control mr-sm-2" name="tiempo" id="" cols="" rows="4"></textarea>
+                        <textarea class="form-control mr-sm-2" id="tiempo" id="" cols="" rows="4"></textarea>
                     </div>
                 </div>
             </div>
@@ -215,7 +227,7 @@
         {{-- Botones  --}}
             <div class="float-right ">
                 <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Crear reporte">
-                <a class="btn btn-outline-danger my-2 my-sm-0" href="{{url('reporte')}}">Cancelar</a>
+                <a class="btn btn-outline-danger my-2 my-sm-0" href="{{url('reporte_diagnostico/')}}">Cancelar</a>
             </div>
         {{-- Botones --}}
 

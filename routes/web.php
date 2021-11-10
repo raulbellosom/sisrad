@@ -45,8 +45,10 @@ Route::group(['middleware'=>'auth'], function(){
 });
 
 Route::group(['middleware'=>'auth'], function(){
-    Route::get('reporte/tipoReporte/reporteDiagnostico', [ReporteDiagnosticoController::class, 'create']);
-    Route::resource('reporteDiagnostico', ReporteDiagnosticoController::class);
+    // Route::get('reporte_diagnostico/', [ReporteDiagnosticoController::class, 'index']);
+    Route::get('reporte_diagnostico/index', [ReporteDiagnosticoController::class, 'index']);
+    Route::get('reporte_diagnostico/create', [ReporteDiagnosticoController::class, 'create']);
+    Route::resource('reporte_diagnostico', ReporteDiagnosticoController::class);
 });
 
 //---------------------------Rutas para los reportes
