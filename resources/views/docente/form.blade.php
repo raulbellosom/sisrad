@@ -10,10 +10,9 @@
             @endforeach
         </ul>
     </div>
-    
 @endif
 
-<div class="mb-4 row d-flex justify-content-around">
+<div class="row d-flex justify-content-around">
     <div class="form-group col-12 col-sm-6 col-md-4">
         <label for="telefono">Telefono</label>
         <input type="text" class="form-control text-primary border-primary" name="telefono" 
@@ -39,7 +38,7 @@
     </div>
 </div>
 
-<div class="mb-4 row d-flex justify-content-around justify-content-sm-start">
+<div class="row d-flex justify-content-around justify-content-sm-start">
     <div class="form-group col-12 col-sm-6 col-md-4">
         <label for="curp">CURP</label>
         <input type="text" class="form-control text-primary border-primary" name="curp" 
@@ -61,10 +60,10 @@
     <div class="form-group col-12 col-sm-8">
         <label class="form-label" for="imagen">Imagen de perfil</label>
         <br>
+        <input type="file" class="form-control text-primary border-primary" name="imagen" value="" id="imagen">
         @if(isset($docente->imagen))
         <img class="img-thumbnail img-fluid" src="{{asset('storage').'/'.$docente->imagen}}" width="150px" alt="imagenDocente">
         @endif
-        <input type="file" class="form-control text-primary border-primary" name="imagen" value="" id="imagen">
     </div>
 </div>
 

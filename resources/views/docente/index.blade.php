@@ -84,7 +84,6 @@
                     </tbody>
                 </table>
             </div>
-            
         </div>
     {{-- Tabla superior perfil --}}
 
@@ -109,8 +108,8 @@
             {{-- Barra superior --}}
 
             {{-- Tabla reportes index  --}}
-                <div class="col-sm-12  row-sm-12">
-                    <table class="table table-responsive table-light   table-striped">
+                <div class="col-sm-12 row-sm-12">
+                    <table class="table table-responsive-sm table-responsive-md table-light table-striped">
                         <thead class="bg-dark text-white">
                             <tr>
                                 <th>Fecha de elaboración</th>
