@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\InfoUser;
+use App\Models\User;
 use Illuminate\Http\Request;
+
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class InfoUserController extends Controller
 {
@@ -24,7 +29,7 @@ class InfoUserController extends Controller
      */
     public function create()
     {
-        //
+        return view("docente.create");
     }
 
     /**
@@ -35,7 +40,34 @@ class InfoUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $campos=[
+            'telefono'=>'required|string|max:100',
+            'direccion'=>'required|string|max:100',
+            'edad'=>'required|string|max:100',
+            'curp'=>'required|string',
+            'nss'=>'required|string|max:15',
+            'imagen'=>'required|max:10000|mimes:jpeg,png,jpg',
+            'user_id'=>'required'
+            
+        ];
+        $mensaje=[
+            'required'=>'El :attribute es requerido',
+            'imagen.required'=>'La imagen es requerida'
+        ];
+        $this->validate($request, $campos, $mensaje);
+
+        // $datosDocente = request()->all();
+        $datosDocente = request()->except("_token");
+        
+
+        if($request->hasFile("imagen")){
+            $datosDocente["imagen"]=$request->file("imagen")->store("uploads","public");
+        }
+        
+        InfoUser::insert($datosDocente);
+
+        // return response()->json($datosDocente);
+        return redirect('docente')->with('mensaje','Docente creado con éxito');
     }
 
     /**
@@ -55,9 +87,11 @@ class InfoUserController extends Controller
      * @param  \App\Models\InfoUser  $infoUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(InfoUser $infoUser)
+    public function edit($id)
     {
-        //
+        // $docente=InfoUser::findOrFail($id);
+        $docente=InfoUser::where('user_id','=',$id)->firstOrFail();
+        return view('docente.edit', compact('docente'));
     }
 
     /**
@@ -67,9 +101,44 @@ class InfoUserController extends Controller
      * @param  \App\Models\InfoUser  $infoUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InfoUser $infoUser)
+    public function update(Request $request, $id)
     {
+
+        $campos=[
+            'telefono'=>'required|string|max:100',
+            'direccion'=>'required|string|max:100',
+            'edad'=>'required|string|max:100',
+            'curp'=>'required|string',
+            'nss'=>'required|string|max:15',
+            'user_id'=>'required'
+            
+        ];
+        $mensaje=[
+            'required'=>'El :attribute es requerido',
+            
+        ];
+        if($request->hasFile("imagen")){
+            $campos=['imagen'=>'required|max:10000|mimes:jpeg,png,jpg',];
+            $mensaje=['imagen.required'=>'La imagen es requerida'];
+        }
+        $this->validate($request, $campos, $mensaje);
+
         //
+        $datosDocente = request()->except(['_token','_method']);
+        
+        if($request->hasFile("imagen")){
+            $docente=InfoUser::findOrFail($id);
+            
+            Storage::delete('public/'.$docente->imagen);
+            
+            $datosDocente["imagen"]=$request->file("imagen")->store("uploads","public");
+        }
+        
+        InfoUser::where('id','=',$id)->update($datosDocente);
+        $docente=InfoUser::findOrFail($id);
+        // return view('docente.edit', compact('docente'));
+        return redirect('docente')->with('mensaje','Los cambios se han efectuado con exito');
+
     }
 
     /**

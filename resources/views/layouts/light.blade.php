@@ -121,6 +121,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    <a class="dropdown-item" href="{{url('docente/show') }}">Mi perfil</a>
                                 </div>
                             </li>
                         @endguest

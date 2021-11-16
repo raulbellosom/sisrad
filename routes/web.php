@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ReporteDiagnosticoController;
@@ -33,8 +34,10 @@ Auth::routes(['register'=>false,'reset'=>false]); //de esta manera queda oculto 
 Route::group(['middleware'=>'auth'], function(){
     Route::get('/', [DocenteController::class, 'index'])->name('home');
     Route::get('/home', [DocenteController::class, 'index']);
+    Route::get('docente/perfil', [DocenteController::class, 'show']);
+    Route::resource('docente',DocenteController::class);
 });
-Route::resource('docente',DocenteController::class)->middleware('auth');
+
 
 //---------------------------Rutas para los reportes
 Route::group(['middleware'=>'auth'], function(){
@@ -50,6 +53,15 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('reporte_diagnostico/create', [ReporteDiagnosticoController::class, 'create']);
     Route::resource('reporte_diagnostico', ReporteDiagnosticoController::class);
 });
+
+Route::group(['middleware'=>'auth'], function(){
+    // Route::get('reporte_diagnostico/', [ReporteDiagnosticoController::class, 'index']);
+    Route::get('infoUser/index', [InfoUserController::class, 'index']);
+    Route::get('infoUser/create', [InfoUserController::class, 'create']);
+    // Route::get('info_user/edit', [InfoUserController::class, 'edit']);
+    Route::resource('infoUser', InfoUserController::class);
+});
+Route::resource('infoUser', InfoUserController::class);
 
 //---------------------------Rutas para los reportes
 Route::get('/get-all-reportes', [PdfController::class, 'getAllPdfController'])->middleware('auth');

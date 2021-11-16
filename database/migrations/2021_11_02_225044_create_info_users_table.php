@@ -26,7 +26,7 @@ class CreateInfoUsersTable extends Migration
             $table->string("imagen");
             $table->timestamps();
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users');
         });
 

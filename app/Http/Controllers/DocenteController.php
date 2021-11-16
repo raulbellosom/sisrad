@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Docente;
+use App\Models\InfoUser;
 use App\Models\ReporteDiagnostico;
-use Illuminate\Http\Request;
+use App\Models\User;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DocenteController extends Controller
 {
@@ -22,11 +26,20 @@ class DocenteController extends Controller
         // $datos["users"]=User::where('userid','=',$user);
         // $datos = DB::table('users')->where('id',$id);
         $id = Auth::id();
-        $datos["reporte_diagnostico"]=ReporteDiagnostico::where('user_id','=',$id)->paginate(3);
+        $datos["reportes"]=ReporteDiagnostico::where('user_id','=',$id)->paginate(3);
         $user['users'] = Auth::user();
-
-        return view("docente.index", $user, $datos);
-        // return view("docente.index", $user);
+        // $info['infos']= DB::select('select user_id, imagen from info_users where user_id = ?', [$id]);
+        $info= InfoUser::where('user_id','=',$id)->value('user_id');
+        $imagen = InfoUser::where('user_id','=',$id)->value('imagen');
+        $bandera = '0';
+        if ($info) {
+            $bandera = '1';
+        }
+        $user = Arr::add($user, 'info_user',$bandera);
+        $user = Arr::add($user, 'imagen',$imagen);
+        
+        // print_r($info);
+        return view("docente.index",$datos,$user);
     }
 
     /**
@@ -82,9 +95,21 @@ class DocenteController extends Controller
      * @param  \App\Models\Docente  $docente
      * @return \Illuminate\Http\Response
      */
-    public function show(Docente $docente)
+    public function show()
     {
-        //
+        $id = Auth::id();
+        $user['users'] = Auth::user();
+        // $info['infos']= DB::select('select user_id, imagen from info_users where user_id = ?', [$id]);
+        $info['infos']= InfoUser::where('user_id','=',$id)->paginate(1);
+        $imagen = InfoUser::where('user_id','=',$id)->value('imagen');
+        $bandera = 0;
+        if ($info) {
+            $bandera = 1;
+        }
+        $user = Arr::add($user, 'info_user',$bandera);
+        $user = Arr::add($user, 'imagen',$imagen);
+        // print_r($info);
+        return view('docente.perfil',$user,$info);
     }
 
     /**
@@ -96,7 +121,7 @@ class DocenteController extends Controller
     public function edit($id)
     {
         //
-        $docente=Docente::findOrFail($id);
+        $docente=User::findOrFail($id);
         return view('docente.edit', compact('docente'));
     }
 
