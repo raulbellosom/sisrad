@@ -1,16 +1,36 @@
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<footer>
-    @yield('footer')
-</footer>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-    footer:{
-        background-color: black;
-        display: flex;
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        height: 8vh;
-        min-height: 8rem;
-    }
-</style>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+    <title>SISRAD</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+
+        <main >
+            @yield('content')
+        </main>
+    </div>
+    <!-- Footer -->
+  
+  <!-- Footer -->
+</body>
+</html>

@@ -7,6 +7,9 @@ use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ReporteDiagnosticoController;
+use App\Http\Controllers\RdCompetenciaController;
+use App\Http\Controllers\RdPagController;
+use App\Http\Controllers\RdPapController;
 
 //probablemente borrar este auth;
 /*
@@ -43,7 +46,6 @@ Route::group(['middleware'=>'auth'], function(){
 Route::group(['middleware'=>'auth'], function(){
     Route::get('reporte/index', [ReporteController::class, 'index']);
     Route::get('reporte/show', [ReporteController::class, 'show']);
-    // Route::get('reporte/tipoReporte/reporteDiagnostico', [ReporteDiagnosticoController::class, 'create']);
     Route::resource('reporte', ReporteController::class);
 });
 
@@ -51,8 +53,17 @@ Route::group(['middleware'=>'auth'], function(){
     // Route::get('reporte_diagnostico/', [ReporteDiagnosticoController::class, 'index']);
     Route::get('reporte_diagnostico/index', [ReporteDiagnosticoController::class, 'index']);
     Route::get('reporte_diagnostico/create', [ReporteDiagnosticoController::class, 'create']);
+    Route::get('reporte_diagnostico/show', [ReporteDiagnosticoController::class, 'show']);
+    Route::post('reporte_diagnostico/competencia', [RdCompetenciaController::class, 'addComp']);
+    Route::post('reporte_diagnostico/borrar_competencia', [RdCompetenciaController::class, 'deleteComp']);
+    Route::post('reporte_diagnostico/pag', [RdPagController::class, 'addPag']);
+    Route::post('reporte_diagnostico/borrar_pag', [RdPagController::class, 'deletePag']);
+    Route::post('reporte_diagnostico/pap', [RdPapController::class, 'addPap']);
+    Route::post('reporte_diagnostico/borrar_pap', [RdPapController::class, 'deletePap']);
     Route::resource('reporte_diagnostico', ReporteDiagnosticoController::class);
 });
+// Route::get('rd_competencia/index', [Rd_competenciaController::class, 'index'])->middleware(('auth'));
+
 
 Route::group(['middleware'=>'auth'], function(){
     // Route::get('reporte_diagnostico/', [ReporteDiagnosticoController::class, 'index']);
@@ -64,5 +75,6 @@ Route::group(['middleware'=>'auth'], function(){
 Route::resource('infoUser', InfoUserController::class);
 
 //---------------------------Rutas para los reportes
-Route::get('/get-all-reportes', [PdfController::class, 'getAllPdfController'])->middleware('auth');
-Route::get('/downloadPDF', [PdfController::class, 'downloadPDF'])->middleware('auth');
+// Route::get('/get-all-reportes', [PdfController::class, 'getAllPdfController'])->middleware('auth');
+// Route::get('/get-reporte', [PdfController::class, 'getReporte'])->middleware('auth');
+Route::get('/downloadPDF/{id}', [PdfController::class, 'downloadPDF'])->middleware('auth');
