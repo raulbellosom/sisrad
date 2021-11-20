@@ -2,11 +2,11 @@
 @extends('layouts.main')
 
 @section('content')
-<div id="emp" class="container" >
+<div id="emp" class="container-fluid" >
     <div class="row mt-4">
         <table class="table table-bordered col-12">
-            <tr class="text-center" >
-                <td rowspan="3"><img class="rounded mx-auto d-block" style="width: 125px" src="{{asset('../resources/img/logo/tec-vallarta.png')}}" alt="adydo-logo"  ></td>
+            <tr>
+                <td class="align-self-lg-center" rowspan="3"><img class="rounded mx-auto" style="width: 125px" src="{{asset('../resources/img/logo/tec-vallarta.png')}}" alt="adydo-logo"  ></td>
                 <td class="font-weight-bold">FORMULARIO</td>
                 <td colspan="2">Resultado de evaluacion diagnostica</td>
             </tr>
@@ -24,8 +24,8 @@
     </div>
 
     <div class="d-flex justify-content-end ">
-        <p class="font-weight-bold text-decoration-underline">Fecha: </p>
-        <p class="text-decoration-underline pl-1"> {{$reportes->created_at}}</p>
+        <p class="font-weight-bold ">Fecha: </p>
+        <p class=""> {{$reportes->created_at}}</p>
     </div>
     
     <div class="row">

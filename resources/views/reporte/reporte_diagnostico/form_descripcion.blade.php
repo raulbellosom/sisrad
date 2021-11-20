@@ -1,21 +1,29 @@
 @extends('layouts.light')
 
 @section('content')
-<div class="container">
-    <div class="d-flex justify-content-between m-2">
-        <a class="btn btn-outline-danger" href="{{url('reporte_diagnostico/')}}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-            </svg>
-            Regresar
-        </a>
-        <a  class="btn btn-outline-success" href="{{url('/downloadPDF')}}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-            </svg>
-            Descargar reporte
-        </a>
+<div class="container bg-white">
+    <div class="pt-4 d-flex justify-content-end justify-content-md-between">
+        <div class="mr-3">
+            <a class="btn btn-outline-danger" href="{{url('reporte_diagnostico/')}}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                </svg>
+                Regresar
+            </a>
+        </div>
+        <div>
+            <form action="{{url('/downloadPDF/'.$reporte_diagnostico->id)}}" method="GET">
+                
+                <button  class="btn btn-outline-success" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                    </svg>
+                    Descargar reporte
+                </button>
+            </form>
+            {{-- <input type="submit" value="Descargar" class="btn btn-outline-success" id="btn_descargar"> --}}
+        </div>
     </div>
             @if(Session::has('mensaje'))
                 <div class="alert alert-success alert-dismissible" role="alert">
@@ -114,7 +122,7 @@
                 </div>
                 <div class="container">
                     {{-- <form class="row" id="form_contacto" method="POST" enctype="multipart/form-data"> --}}
-                        
+                    <div class="row">
                         <div class="form-group col-8" >
                             <label class="mr-4" for="competencia">Competencia</label>
                             <input class="form-control" name="competencia" type="text" placeholder="Descripcion de la competencia" id="competencia" >
@@ -131,7 +139,7 @@
                         </div>
                         <input type="hidden" name="_token" id="token" value="{{ csrf_token()}}">
                         <input type="hidden" name="r_diagnostico_id" id="r_diagnostico_id" value="{{$reporte_diagnostico->id}}" >
-                        
+                    </div>  
                     {{-- </form> --}}
                 </div>
                 <div class="row">
@@ -260,7 +268,7 @@
         {{-- Plan accion general --}}
 
         {{-- Botones  --}}
-            <div class="m-2 d-flex justify-content-end justify-content-md-between  ">
+            <div class=" pb-4 d-flex justify-content-end justify-content-md-between">
                 <div class="mr-3">
                     <a class="btn btn-outline-danger" href="{{url('reporte_diagnostico/')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">

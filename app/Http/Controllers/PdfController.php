@@ -58,7 +58,7 @@ class PdfController extends Controller
         $pdf = PDF::loadView('reporte.export', $competencias,  compact('reportes'))->setPaper('letter', 'landscape');// horizontal
         // $pdf = PDF::loadView('reporte.export',$competencias)->setPaper('letter', 'portrait'); //vertical
 
-        return $pdf->download('reporte.pdf');
+        return $pdf->download('reporte_diagnostico_'.$id.'.pdf');
     }
 
     public function guest()
