@@ -216,7 +216,7 @@
                 </div>
                 <div class="container">
                     <div class="row">
-                        <table class="table table-light table-striped table-responsive-sm table-responsive-md">
+                        <table id="particular" class="table table-light table-striped table-responsive-sm table-responsive-md">
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th class="col-3" >Nombre del alumno</th>
@@ -229,17 +229,15 @@
                             @foreach ($pap as $paps)
                                 @foreach ($paps as $datos)
                                 <tr>
-                                    <th class="col-3">{{$datos->alumno_particular}}</th>
-                                    <th class="col-3">{{$datos->deficiencia_particular}}</th>
-                                    <th class="col-4 ">{{$datos->accion_particular}}</th>
-                                    <th class="col-2">
+                                    <th class="col-3">{{Str::substr($datos->alumno_particular,3) }}</th>
+                                    <td class="col-3">{{Str::substr($datos->deficiencia_particular,3)}}</td>
+                                    <td class="col-4">{{Str::substr($datos->accion_particular,3)}},</td>
+                                    <td class="col-2">
                                         <input type="hidden" value="{{$datos->id}}" id="pap_id">
                                         <input class=" btn btn-danger" type="submit" value="Borrar" id="borrar_pap">
-                                    </th>
+                                    </td>
                                 </tr>
                                 @endforeach
-                                
-                                
                             @endforeach     
                             </tbody>
                         </table>
@@ -305,27 +303,6 @@
             let r_diagnostico_id = document.getElementById('r_diagnostico_id');
             let id_reporte = document.getElementById('id_reporte');
             let _token = document.getElementById('token');
-        //     let btn_descargar =  document.getElementById('btn_descargar');
-            
-        // btn_descargar.addEventListener("click", function(e){
-        //     // let datos = {r_diagnostico_id:r_diagnostico_id.value}
-        //         e.preventDefault();
-               
-        //         fetch('/sisrad/public/downloadPDF?r_diagnostico_id='+r_diagnostico_id.value,{
-        //             method: 'get',
-        //             headers: {
-        //                 'X-CSRF-TOKEN': _token.value,
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             // body: JSON.stringify(datos)
-        //         }).then(response => response.json())
-        //         .then(data => {
-        //             console.log(data);
-        //             // location.reload()
-        //         }).catch(error => {
-        //             console.log(error.message);
-        //         })
-        // })
 
             boton.addEventListener("click", function(e){
                 
@@ -427,11 +404,14 @@
             let deficiencia_particular = document.getElementById('deficiencia_particular');
             let accion_particular = document.getElementById('accion_particular');
             let pap_id = document.getElementById('pap_id');
+            var contador = (document.getElementById("particular").rows.length);
+            console.log(contador);
+            // let alumn = contador + alumno_particular.value;
 
             boton_pap.addEventListener("click", function(e){
                 
-                let datos = {alumno_particular:alumno_particular.value, deficiencia_particular:deficiencia_particular.value, 
-                accion_particular:accion_particular.value, r_diagnostico_id:r_diagnostico_id.value}
+                let datos = {alumno_particular:contador+ ". " + alumno_particular.value, deficiencia_particular:contador+ ". " +deficiencia_particular.value, 
+                accion_particular:contador+ ". " +accion_particular.value, r_diagnostico_id:r_diagnostico_id.value}
                 e.preventDefault();
                
                 fetch('/sisrad/public/reporte_diagnostico/pap',{
@@ -443,7 +423,7 @@
                     body: JSON.stringify(datos)
                 }).then(response => response.json())
                 .then(data => {
-                    // console.log(data);
+                    
                     location.reload()
                 }).catch(error => {
                     console.log(error.message);

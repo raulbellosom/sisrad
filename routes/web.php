@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\ReporteDiagnosticoExport;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DocenteController;
@@ -54,6 +55,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('reporte_diagnostico/index', [ReporteDiagnosticoController::class, 'index']);
     Route::get('reporte_diagnostico/create', [ReporteDiagnosticoController::class, 'create']);
     Route::get('reporte_diagnostico/show', [ReporteDiagnosticoController::class, 'show']);
+    // Route::get('reporte_diagnostico/download', [ReporteDiagnosticoExport::class, 'view']);
+
     Route::post('reporte_diagnostico/competencia', [RdCompetenciaController::class, 'addComp']);
     Route::post('reporte_diagnostico/borrar_competencia', [RdCompetenciaController::class, 'deleteComp']);
     Route::post('reporte_diagnostico/pag', [RdPagController::class, 'addPag']);
@@ -62,7 +65,10 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('reporte_diagnostico/borrar_pap', [RdPapController::class, 'deletePap']);
     Route::resource('reporte_diagnostico', ReporteDiagnosticoController::class);
 });
-// Route::get('rd_competencia/index', [Rd_competenciaController::class, 'index'])->middleware(('auth'));
+
+Route::get('/download', function () {
+    return (new ReporteDiagnosticoExport)->download('diagnosticos.xlsx');
+})->middleware('auth');
 
 
 Route::group(['middleware'=>'auth'], function(){

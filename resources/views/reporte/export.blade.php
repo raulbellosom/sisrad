@@ -2,18 +2,18 @@
 @extends('layouts.main')
 
 @section('content')
-<div id="emp" class="container-fluid" >
+<div id="emp" class="container-fluid bg-white" >
     <div class="row mt-4">
         <table class="table table-bordered col-12">
             <tr>
-                <td class="align-self-lg-center" rowspan="3"><img class="rounded mx-auto" style="width: 125px" src="{{asset('../resources/img/logo/tec-vallarta.png')}}" alt="adydo-logo"  ></td>
+                <td class="align-content-center" rowspan="3" style="width: 125px"><img class="rounded mx-auto" style="width: 125px" src="{{asset('../resources/img/logo/tec-vallarta.png')}}" alt="adydo-logo"  ></td>
                 <td class="font-weight-bold">FORMULARIO</td>
-                <td colspan="2">Resultado de evaluacion diagnostica</td>
+                <td class="font-weight-bold" colspan="2">Resultado de evaluacion diagnostica</td>
             </tr>
             <tr>
                 <td class="font-weight-bold">CÓDIGO</td>
-                <td class="font-weight-bold">VERSION</td>
-                <td class="font-weight-bold">ULIMA REVISIÓN</td>
+                <td class="font-weight-bold">VERSIÓN</td>
+                <td class="font-weight-bold">ÚLTIMA REVISIÓN</td>
             </tr>
             <tr>
                 <td class="font-weight-bold">AAP-PCR-04/F04</td>
@@ -24,8 +24,7 @@
     </div>
 
     <div class="d-flex justify-content-end ">
-        <p class="font-weight-bold ">Fecha: </p>
-        <p class=""> {{$reportes->created_at}}</p>
+        <p class="font-weight-bold ">Fecha: {{$reportes->created_at}}</p>
     </div>
     
     <div class="row">
