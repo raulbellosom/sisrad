@@ -21,10 +21,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <div class=" nav navbar-nav">
-                    <a href="{{url('reporte_diagnostico/')}}" class="nav-link text-warning font-weight-bold text-info h6 mb-0" >Reporte Diagnostico</a>
-                    <a href="{{route('raa-index')}}" class="nav-link text-light h6 mb-0">Reporte de Avance Académico</a>
+                    <a href="{{url('reporte_diagnostico/')}}" class="nav-link text-light h6 mb-0" >Reporte Diagnostico</a>
+                    <a href="{{route('raa-index')}}" class="nav-link text-warning font-weight-bold text-info h6 mb-0">Reporte de Avance Académico</a>
                     <a class="nav-link text-light h6 mb-0" href="#">Reporte de Avance Programatico</a>
-                    <a href="{{route('rdep-index')}}" class="nav-link text-light h6 mb-0">Reporte Departamental</a>
+                    <a href="{{route('rdep-index')}}" class="nav-link text-light  h6 mb-0">Reporte Departamental</a>
                     <a class="nav-link text-light h6 mb-0" href="#">Reporte Final</a>
                 </div>
             </div>
@@ -35,19 +35,19 @@
         <div class="bg-white">
             <div class="m-4 justify-content-lg-around">
                 <form class="row m-4 d-flex justify-content-between pt-4 ">
-                    <input class="form-control col-7 col-sm-6 col-md-8 col-lg-6 mb-1" type="search" placeholder="Buscar" aria-label="Search">
+                    <input class="form-control col-7 col-sm-6 col-md-8 col-lg-5 mb-1" type="search" placeholder="Buscar" aria-label="Search">
                     <button class="btn btn-outline-primary col-4 col-sm-4 col-md-3 col-lg-2 mb-1" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>
                         Buscar
                     </button>
-                    <a href="reporte_diagnostico/create" class="btn btn-outline-success col-12 col-sm-12 col-md-12 col-lg-3 mb-1"> 
+                    <a href="{{url('reporte_avance_academico/create')}}" class="btn btn-outline-success col-12 col-sm-12 col-md-12 col-lg-4 mb-1"> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                         </svg>
-                        Crear Reporte Diagnostico
+                        Crear Reporte Avance Académico
                     </a>
                 </form>
             </div>
@@ -74,7 +74,7 @@
                             <td class="text-center">{{$reporte->grado}} {{$reporte->grupo}}</td>
                             {{-- <td>{{$reporte->turno}}</td> --}}
                             <td class="d-flex justify-content-between">
-                                <a href="{{url('/reporte_diagnostico/'.$reporte->id.'/edit') }}" class="btn btn-warning">
+                                <a href="{{url('/reporte_avance_academico/'.$reporte->id.'/edit') }}" class="btn btn-warning">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
@@ -90,7 +90,7 @@
                                         Descargar
                                     </button>
                                 </form>
-                                <form action="{{ url('/reporte_diagnostico/'.$reporte->id) }}" method="POST">
+                                <form action="{{ url('/reporte_avance_academico/'.$reporte->id) }}" method="POST">
                                     @csrf
                                     {{method_field('DELETE')}}
                                 <button type="submit" onclick="return confirm('¿Deseas borrar este reporte?')" 

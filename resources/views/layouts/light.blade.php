@@ -55,11 +55,11 @@
                         @csrf
                       @endif
                       @if (Auth::user()->typeUser  == "2")
-                        <ul class="navbar-nav mr-auto">
-                          <li class="nav-item">
-                              <a class="nav-link" href="{{ route('docente.index') }}">{{ __('Administrativo') }}</a>
-                          </li>
-                        </ul>
+                          <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ route('administrativo') }}">{{ __('Administrativo') }}</a>
+                            </li>
+                          </ul>
                         @csrf
                       @endif
                       @if (Auth::user()->typeUser  == "3")

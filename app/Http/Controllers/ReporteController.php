@@ -25,6 +25,11 @@ class ReporteController extends Controller
         return view("reporte.indexReporte", $user, $datos);
     }
 
+    ///////////////////////////Administrativos//////////////////////////
+    public function admin(){
+        return view('reporte_admin.index_admin');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

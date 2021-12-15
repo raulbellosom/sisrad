@@ -7,8 +7,10 @@ use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\RaaController;
 use App\Http\Controllers\ReporteDiagnosticoController;
 use App\Http\Controllers\RdCompetenciaController;
+use App\Http\Controllers\RDepartamentalController;
 use App\Http\Controllers\RdPagController;
 use App\Http\Controllers\RdPapController;
 
@@ -39,6 +41,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/', [DocenteController::class, 'index'])->name('home');
     Route::get('/home', [DocenteController::class, 'index']);
     Route::get('docente/perfil', [DocenteController::class, 'show']);
+    
     Route::resource('docente',DocenteController::class);
 });
 
@@ -47,15 +50,19 @@ Route::group(['middleware'=>'auth'], function(){
 Route::group(['middleware'=>'auth'], function(){
     Route::get('reporte/index', [ReporteController::class, 'index']);
     Route::get('reporte/show', [ReporteController::class, 'show']);
+    // Route::get('administrativo', [ReporteController::class, 'admin'])->name('admin');
     Route::resource('reporte', ReporteController::class);
 });
 
 Route::group(['middleware'=>'auth'], function(){
-    // Route::get('reporte_diagnostico/', [ReporteDiagnosticoController::class, 'index']);
+    Route::get('administrativo', [ReporteController::class, 'admin'])->name('administrativo');
+});
+
+//---------------------Reporte Diagnostico Rutas
+Route::group(['middleware'=>'auth'], function(){
     Route::get('reporte_diagnostico/index', [ReporteDiagnosticoController::class, 'index']);
     Route::get('reporte_diagnostico/create', [ReporteDiagnosticoController::class, 'create']);
     Route::get('reporte_diagnostico/show', [ReporteDiagnosticoController::class, 'show']);
-    // Route::get('reporte_diagnostico/download', [ReporteDiagnosticoExport::class, 'view']);
 
     Route::post('reporte_diagnostico/competencia', [RdCompetenciaController::class, 'addComp']);
     Route::post('reporte_diagnostico/borrar_competencia', [RdCompetenciaController::class, 'deleteComp']);
@@ -64,6 +71,21 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('reporte_diagnostico/pap', [RdPapController::class, 'addPap']);
     Route::post('reporte_diagnostico/borrar_pap', [RdPapController::class, 'deletePap']);
     Route::resource('reporte_diagnostico', ReporteDiagnosticoController::class);
+});
+
+//-------------------------Reporte Avance Programatico
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('reporte_avance_academico/index', [RaaController::class, 'index'])->name('raa-index');
+    Route::get('reporte_avance_academico/create', [RaaController::class, 'create']);
+    Route::resource('reporte_avance_academico', RaaController::class);
+});
+
+
+//-------------------------Reporte Departamental
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('reporte_departamental/index', [RDepartamentalController::class, 'index'])->name('rdep-index');
+    Route::get('reporte_departamental/create', [RDepartamentalController::class, 'create']);
+    Route::resource('reporte_departamental', RDepartamentalController::class);
 });
 
 Route::get('/download', function () {

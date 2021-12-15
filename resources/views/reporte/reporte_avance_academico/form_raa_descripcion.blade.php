@@ -4,7 +4,7 @@
 <div class="container bg-white">
     <div class="pt-4 d-flex justify-content-end justify-content-md-between">
         <div class="mr-3">
-            <a class="btn btn-outline-danger" href="{{url('reporte_diagnostico/')}}">
+            <a class="btn btn-outline-danger" href="{{url('reporte_avance_academico/')}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
                 </svg>
@@ -12,7 +12,7 @@
             </a>
         </div>
         <div>
-            <form action="{{url('/downloadPDF/'.$reporte_diagnostico->id)}}" method="GET">
+            <form action="{{url('/downloadPDF/'.$raa->id)}}" method="GET">
                 
                 <button  class="btn btn-outline-success" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
@@ -65,119 +65,111 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{$reporte_diagnostico->created_at}}</td>
-                            <td>{{$reporte_diagnostico->nombre_reporte}}</td>
-                            <td>{{$reporte_diagnostico->carrera}}</td>
-                            <td>{{$reporte_diagnostico->asignatura}}</td>
-                            <td>{{$reporte_diagnostico->grado}} {{$reporte_diagnostico->grupo}}</td>
-                            <td>{{$reporte_diagnostico->turno}}</td>
+                            <td>{{$raa->created_at}}</td>
+                            <td>{{$raa->nombre_reporte}}</td>
+                            <td>{{$raa->carrera}}</td>
+                            <td>{{$raa->asignatura}}</td>
+                            <td>{{$raa->grado}} {{$raa->grupo}}</td>
+                            <td>{{$raa->turno}}</td>
                         </tr>  
                     </tbody>
                 </table>
             </div>
         {{-- Tabla principal --}}
 
-        {{-- Conocimientos y competecias --}}
+        {{-- Unidad --}}
             <div class="mb-4 bg-white">
                 <div class="bg-primary p-4 text-center text-light font-weight-bold text-h1 text-uppercase" >
-                    Conocimientos, competencias especificas y/o genericas previas
+                    Evaluacion por unidad
                 </div>
                 <div class="container">
                     <div class="row">
                         <table class="table table-light table-striped table-responsive-sm table-responsive-md">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th class="col-8" >Competencia</th>
-                                    <th class="col-2 text-center">Nivel alcanzado</th>
-                                    <th class="col-2">Acciones</th>
+                                    <th class="col-2" >No. Unidad Evaluada</th>
+                                    <th class="col-2 text-center">No. Alumnos Reprobados</th>
+                                    <th class="col-2">% de Reprobacion</th>
+                                    <th class="col-4">Promedio de calificaciones del grupo por unidad (considerar el total de alumnos en lista)</th>
+                                    <th class="col-2">% de Asistencia</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($competencia as $comp)
-                                <tr>
-                                    <th class="col-8">{{$comp->competencia}}</th>
-                                    <th class="col-2 text-center">
-                                        @if ($comp->ponderacion==0)
-                                            Nulo
-                                        @endif
-                                        @if ($comp->ponderacion==1)
-                                            Bajo
-                                        @endif
-                                        @if ($comp->ponderacion==2)
-                                            Aceptable
-                                        @endif
-                                        @if ($comp->ponderacion==3)
-                                            Bueno
-                                        @endif
-                                    </th>
-                                    <th class="col-2">
-                                        <input type="hidden" value="{{$comp->id}}" id="id_reporte">
-                                        <input class=" btn btn-danger" type="submit" value="Borrar" id="borrar">
-                                    </th>
-                                </tr>
-                            @endforeach     
+                               <tr>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                               </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="container">
+                    {{-- <form class="row" id="form_contacto" method="POST" enctype="multipart/form-data"> --}}
                     <div class="row">
-                        <div class="form-group col-8" >
-                            <label class="mr-4" for="competencia">Competencia</label>
-                            <input class="form-control" name="competencia" type="text" placeholder="Descripcion de la competencia" id="competencia" >
+                        <div class="form-group col-6 col-sm-6 col-md-2">
+                            <label for="grado" class="col-form-label font-weight-bold pr-2">No. Unidad Evaluada</label>
+                            <input id="grado" class="form-control mr-2" name="grado" type="number" placeholder="No. Unidad Evaluada" min="0" max="9" pattern="^[0-9]+">
                         </div>
-                        <div class="form-group col-4">
-                            <label class=" mr-4" for="ponderacion">Nivel</label>
-                            <select class="form-control" name="ponderacion" id="ponderacion">
-                                <option value="" hidden></option>
-                                <option value="0">Nulo</option>
-                                <option value="1">Bajo</option>
-                                <option value="2">Aceptable</option>
-                                <option value="3">Bueno</option>
-                            </select>
+                        <div class="form-group col-6 col-sm-6 col-md-2">
+                            <label for="grado" class="col-form-label font-weight-bold pr-2">No. Alum Reprobados</label>
+                            <input id="grado" class="form-control mr-2" name="grado" type="number" placeholder="No. Alumnos Reprobados" min="0" max="9" pattern="^[0-9]+">
+                        </div>
+                        <div class="form-group col-6 col-sm-6 col-md-2">
+                            <label for="grado" class="col-form-label font-weight-bold pr-2">%. de Reprobacion</label>
+                            <input id="grado" class="form-control mr-2" name="grado" type="number" placeholder="%. de Reprobacion" min="0" max="9" pattern="^[0-9]+">
+                        </div>
+                        <div class="form-group col-6 col-sm-6 col-md-4">
+                            <label for="grado" class="col-form-label font-weight-bold pr-2">Promedio de Calificaciones del grupo por unidad</label>
+                            <input id="grado" class="form-control mr-2" name="grado" type="number" placeholder="Promedio de Calificaciones del grupo por unidad" min="0" max="9" pattern="^[0-9]+">
+                        </div>
+                        <div class="form-group col-6 col-sm-6 col-md-2">
+                            <label for="grado" class="col-form-label font-weight-bold pr-2">%. de Asistencia</label>
+                            <input id="grado" class="form-control mr-2" name="grado" type="number" placeholder="%. de Asistencia" min="0" max="9" pattern="^[0-9]+">
                         </div>
                         <input type="hidden" name="_token" id="token" value="{{ csrf_token()}}">
-                        <input type="hidden" name="r_diagnostico_id" id="r_diagnostico_id" value="{{$reporte_diagnostico->id}}" >
+                        <input type="hidden" name="r_diagnostico_id" id="r_diagnostico_id" value="{{$raa->id}}" >
                     </div>  
                     {{-- </form> --}}
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center mb-4">
-                        <input type="submit" value="Añadir competencia" class="btn btn-success" id="enviar">
+                        <input type="submit" value="Añadir unidad" class="btn btn-success" id="enviar">
                     </div>
                 </div>
             </div>
 
-        {{-- Conocimientos y competecias --}}
+        {{-- Unidad --}}
         
-        {{-- Plan accion general --}}
+        {{-- Analisis de resultados --}}
             <div class="mb-4 pb-4 bg-white ">
                 <div class="bg-primary p-4 text-center text-light font-weight-bold text-h1 text-uppercase">
-                    Plan de acción general
+                    Analisis de resultados (Rertroalimentación)
                 </div>
                 <div class="container">
                     <div class="row">
                         <table class="table table-light table-striped table-responsive-sm table-responsive-md">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th class="col-4" >Deficiencia General</th>
-                                    <th class="col-4 text-center">Accion Sugeridas</th>
-                                    <th class="col-2 text-center">Tiempo de Ejecucion</th>
+                                    <th class="col-4" >Descripción de la causa de reprobación</th>
+                                    <th class="col-4 text-center">Acciones aplicadas y/o Causas de éxito de la Aprobación</th>
                                     <th class="col-2">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th class="col-4">{{$pag_def}}</th>
-                                    <th class="col-4 text-center">{{$pag_ac}}</th>
-                                    <th class="col-2 text-center">{{$pag_time}}</th>
-                                    <th class="col-2">
+                                    <th class="col-4"></th>
+                                    <th class="col-4 text-center"></th>
+                                    {{-- <th class="col-2">
                                         <input type="hidden" value="{{$pag_id}}" id="pag_id">
                                         @if ($pag_id != 0)
                                         <input class=" btn btn-danger" type="submit" value="Borrar" id="borrar_pag">
                                         @endif
                                         
-                                    </th>
+                                    </th> --}}
+                                    <th></th>
                                 </tr>  
                             </tbody>
                         </table>
@@ -185,28 +177,81 @@
                 </div>
                 
                 <div class="mw-100 pl-4 pr-4">
-                    @if(!($pag_id))
+                    
                     <div class="mb-3">
-                        Deficiencias 
+                        Descripción de la causa de reprobación
                         <textarea class="form-control mr-sm-2" id="deficiencia_general" id="" cols="" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        Acciones sugeridas y recursos necesarios 
+                        Acciones aplicadas y/o Causas de éxito de la Aprobación
                         <textarea class="form-control mr-sm-2" id="accion_general" cols="" rows="3"></textarea>
                     </div>
-                    <div class="mb-3" >
-                        Tiempo de ejecución e impacto en cronograma
-                        <textarea class="form-control mr-sm-2" id="tiempo_general" cols="" rows="2"></textarea>
-                    </div>
-                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center mb-4">
-                        <input type="submit" value="Crear Plan de Accion General" class="btn btn-success" id="btn_pag">
+                        <input type="submit" value="Agregar Analisis de Resultados" class="btn btn-success" id="btn_pag">
                     </div>
                 </div>
             </div>
+        {{-- Analisis de resultados --}}
+
         {{-- Plan accion general --}}
+        <div class="mb-4 pb-4 bg-white ">
+            <div class="bg-primary p-4 text-center text-light font-weight-bold text-h1 text-uppercase">
+                Plan de acción general
+            </div>
+            <div class="container">
+                <div class="row">
+                    <table class="table table-light table-striped table-responsive-sm table-responsive-md">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th class="col-4" >Deficiencia General</th>
+                                <th class="col-4 text-center">Accion Sugeridas</th>
+                                <th class="col-2 text-center">Tiempo de Ejecucion</th>
+                                <th class="col-2">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {{-- <th class="col-4">{{$pag_def}}</th>
+                                <th class="col-4 text-center">{{$pag_ac}}</th>
+                                <th class="col-2 text-center">{{$pag_time}}</th>
+                                <th class="col-2">
+                                    <input type="hidden" value="{{$pag_id}}" id="pag_id">
+                                    @if ($pag_id != 0)
+                                    <input class=" btn btn-danger" type="submit" value="Borrar" id="borrar_pag">
+                                    @endif
+                                    
+                                </th> --}}
+                            </tr>  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="mw-100 pl-4 pr-4">
+                {{-- @if(!($pag_id)) --}}
+                <div class="mb-3">
+                    Deficiencias 
+                    <textarea class="form-control mr-sm-2" id="deficiencia_general" id="" cols="" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    Acciones sugeridas y recursos necesarios 
+                    <textarea class="form-control mr-sm-2" id="accion_general" cols="" rows="3"></textarea>
+                </div>
+                <div class="mb-3" >
+                    Tiempo de ejecución e impacto en cronograma
+                    <textarea class="form-control mr-sm-2" id="tiempo_general" cols="" rows="2"></textarea>
+                </div>
+                {{-- @endif --}}
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center mb-4">
+                    <input type="submit" value="Crear Plan de Accion General" class="btn btn-success" id="btn_pag">
+                </div>
+            </div>
+        </div>
+    {{-- Plan accion general --}}
 
         {{-- Plan accion particular --}}
             <div class="mb-4 pb-4 bg-white ">
@@ -225,7 +270,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($pap as $paps)
+                            {{-- @foreach ($pap as $paps)
                                 @foreach ($paps as $datos)
                                 <tr>
                                     <th class="col-3">{{Str::substr($datos->alumno_particular,3) }}</th>
@@ -237,7 +282,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                            @endforeach     
+                            @endforeach      --}}
                             </tbody>
                         </table>
                     </div>
@@ -252,7 +297,7 @@
                         <textarea class="form-control mr-sm-2" id="deficiencia_particular" rows="2"></textarea>
                     </div>
                     <div class="mb-2" >
-                        Acción sugerida (academica, psicologica, etc)
+                        Acción sugerida (Asesoría, Tutoría,  psicológica, etc.)
                         <textarea class="form-control mr-sm-2" id="accion_particular" rows="2"></textarea>
                     </div>
                 </div>
@@ -267,7 +312,7 @@
         {{-- Botones  --}}
             <div class=" pb-4 d-flex justify-content-end justify-content-md-between">
                 <div class="mr-3">
-                    <a class="btn btn-outline-danger" href="{{url('reporte_diagnostico/')}}">
+                    <a class="btn btn-outline-danger" href="{{url('reporte_avance_academico/')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
                         </svg>
@@ -275,7 +320,7 @@
                     </a>
                 </div>
                 <div>
-                    <form action="{{url('/downloadPDF/'.$reporte_diagnostico->id)}}" method="GET">
+                    <form action="{{url('/downloadPDF/'.$raa->id)}}" method="GET">
                         
                         <button  class="btn btn-outline-success" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">

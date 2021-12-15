@@ -15,16 +15,16 @@
 
     {{-- Barra de navegación  --}}
         <nav class="navbar navbar-expand-xl navbar-dark bg-secondary">
-            <a class="navbar-brand mb-0 h1" href="{{url('reporte/')}}">Mis reportes</a>
+            <a class="navbar-brand text-warning font-weight-bold" href="{{url('reporte/')}}">Mis reportes</a>
             <button class="navbar-toggler bg-secondary " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon "></span>
             </button>
             <div class="collapse navbar-collapse nav-pills" id="navbarNav">
               <div class="navbar-nav">
-                    <a href="{{url('reporte_diagnostico/')}}" class="nav-link text-light  h6 mb-0" >Reporte Diagnostico</a>
-                    <a class="nav-link text-light  h6 mb-0" href="#">Reporte de Avance Programatico</a>
+                    <a href="{{url('reporte_diagnostico/')}}" class="nav-link text-light  h6 mb-0">Reporte Diagnostico</a>
+                    <a href="{{route('raa-index')}}" class="nav-link text-light  h6 mb-0">Reporte de Avance Programatico</a>
                     <a class="nav-link text-light h6 mb-0" href="#">Reporte de Avance Academico</a>
-                    <a class="nav-link text-light  h6 mb-0" href="#">Reporte Departamental</a>
+                    <a href="{{route('rdep-index')}}" class="nav-link text-light  h6 mb-0">Reporte Departamental</a>
                     <a class="nav-link text-light h6 mb-0" href="#">Reporte Final</a>
                 </div>
             </div>
